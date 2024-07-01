@@ -24,8 +24,17 @@ function docker-install {
     curl -SL https://github.com/docker/compose/releases/download/v2.3.3/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
     
     chmod +x ~/.docker/cli-plugins/docker-compose
-}
 
-docker-install
+    # Create Docker daemon.json file
+    sudo mkdir -p /etc/docker
+    echo '{
+      "default-address-pools": [
+        {"base":"10.10.0.0/24","size":24}
+      ]
+    }' | sudo tee /etc/docker/daemon.json
+
+    # Restart Docker service to apply new settings
+    sudo systemctl restart docker
+}
 
 docker-install
