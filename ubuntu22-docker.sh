@@ -27,11 +27,6 @@ function docker-install {
 
     # Create Docker daemon.json file
     sudo mkdir -p /etc/docker
-    echo '{
-      "default-address-pools": [
-        {"base":"10.10.0.0/24","size":24}
-      ]
-    }' | sudo tee /etc/docker/daemon.json
 
     # Restart Docker service to apply new settings
     sudo systemctl restart docker
